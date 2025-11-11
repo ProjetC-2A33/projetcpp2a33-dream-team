@@ -1,4 +1,0 @@
-<RCC>
-    <qresource prefix="/background"/>
-    <qresource prefix="/new/prefix1"/>
-</RCC>
