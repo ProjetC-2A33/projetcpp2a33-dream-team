@@ -23,26 +23,7 @@ public:
     ~smartstudio();
 
 private slots:
-    void on_pushButton_82_clicked();
 
-    void on_pushButton_clicked();
-    void on_pushButton_84_clicked();
-
-    void on_pushButton_99_clicked();
-
-    void on_pushButton_85_clicked();
-
-    void on_pushButton_98_clicked();
-
-    void on_pushButton_86_clicked();
-
-    void on_pushButton_113_clicked();
-
-    void on_pushButton_101_clicked();
-
-    void on_pushButton_62_clicked();
-
-    void on_pushButton_80_clicked();
 
 
 
@@ -53,7 +34,7 @@ private slots:
     void on_pushButton_75_clicked(); // Modifier (if exists)
     void on_pushButton_76_clicked(); // Supprimer (if exists)
     void refreshTable(); // Refresh table data
-    
+    void on_pushButton_79_clicked();
     // Search and Sort functionality
     void on_l2_29_textChanged(const QString &text); // Search filter
     void on_comboBox_8_currentIndexChanged(int index); // Sort by column
@@ -65,4 +46,8 @@ private:
     void clearInputs(); // Clear input fields
     Materielle::MaterielData getDataFromUI(); // Get data from UI fields
 };
+
+
+
+
 #endif // SMARTSTUDIO_H
