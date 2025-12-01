@@ -6,7 +6,7 @@
 #include <QSqlQuery>
 #include <QTableWidget>
 #include <QMessageBox>
-
+#include <QrCodeGenerator.h>
 class Materielle
 {
 public:

@@ -7,6 +7,9 @@
 #include <QMessageBox>
 #include <QTableWidgetItem>
 #include "materielle.h"
+#include <QrCodeGenerator.h>
+
+#include <QtCharts/QChartView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -38,13 +41,20 @@ private slots:
     // Search and Sort functionality
     void on_l2_29_textChanged(const QString &text); // Search filter
     void on_comboBox_8_currentIndexChanged(int index); // Sort by column
-
+    void on_tab_commqr_clicked(const QModelIndex &index);
+    void checkMaterialStateForAlert(const Materielle::MaterielData &data);
+    bool materialNeedsMaintenance(const Materielle::MaterielData &data) const;
 private:
     Ui::smartstudio *ui;
     Materielle materielle; // Instance de la classe Materielle pour les opérations CRUD
     void loadTableData(); // Load data from database
     void clearInputs(); // Clear input fields
     Materielle::MaterielData getDataFromUI(); // Get data from UI fields
+    void updateCharts();
+
+    QChartView *chartTypesView = nullptr;
+    QChartView *chartLocView = nullptr;
+    QrCodeGenerator m_generator;
 };
 
 

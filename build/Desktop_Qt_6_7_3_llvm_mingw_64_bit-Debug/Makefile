@@ -10,9 +10,9 @@ MAKEFILE      = Makefile
 
 EQ            = =
 
-first: debug
-install: debug-install
-uninstall: debug-uninstall
+first: release
+install: release-install
+uninstall: release-uninstall
 QMAKE         = D:\Qt\6.7.3\llvm-mingw_64\bin\qmake.exe
 DEL_FILE      = del
 CHK_DIR_EXISTS= if not exist
@@ -37,24 +37,10 @@ RES_FILE      =
 SED           = $(QMAKE) -install sed
 MOVE          = move
 SUBTARGETS    =  \
-		debug \
-		release
+		release \
+		debug
 
 
-debug: FORCE
-	$(MAKE) -f $(MAKEFILE).Debug
-debug-make_first: FORCE
-	$(MAKE) -f $(MAKEFILE).Debug 
-debug-all: FORCE
-	$(MAKE) -f $(MAKEFILE).Debug all
-debug-clean: FORCE
-	$(MAKE) -f $(MAKEFILE).Debug clean
-debug-distclean: FORCE
-	$(MAKE) -f $(MAKEFILE).Debug distclean
-debug-install: FORCE
-	$(MAKE) -f $(MAKEFILE).Debug install
-debug-uninstall: FORCE
-	$(MAKE) -f $(MAKEFILE).Debug uninstall
 release: FORCE
 	$(MAKE) -f $(MAKEFILE).Release
 release-make_first: FORCE
@@ -69,6 +55,20 @@ release-install: FORCE
 	$(MAKE) -f $(MAKEFILE).Release install
 release-uninstall: FORCE
 	$(MAKE) -f $(MAKEFILE).Release uninstall
+debug: FORCE
+	$(MAKE) -f $(MAKEFILE).Debug
+debug-make_first: FORCE
+	$(MAKE) -f $(MAKEFILE).Debug 
+debug-all: FORCE
+	$(MAKE) -f $(MAKEFILE).Debug all
+debug-clean: FORCE
+	$(MAKE) -f $(MAKEFILE).Debug clean
+debug-distclean: FORCE
+	$(MAKE) -f $(MAKEFILE).Debug distclean
+debug-install: FORCE
+	$(MAKE) -f $(MAKEFILE).Debug install
+debug-uninstall: FORCE
+	$(MAKE) -f $(MAKEFILE).Debug uninstall
 
 Makefile: ../../smartstudio.pro D:/Qt/6.7.3/llvm-mingw_64/mkspecs/win32-clang-g++/qmake.conf D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/spec_pre.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/device_config.prf \
@@ -387,9 +387,11 @@ Makefile: ../../smartstudio.pro D:/Qt/6.7.3/llvm-mingw_64/mkspecs/win32-clang-g+
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/toolchain.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/default_pre.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/win32/default_pre.prf \
+		../../Qt-QrCodeGenerator-main/Qt-QrCodeGenerator.pri \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/resolve_config.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/exclusive_builds_post.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/default_post.prf \
+		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/win32/console.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/qml_debug.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/precompile_header.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/warn_on.prf \
@@ -402,17 +404,20 @@ Makefile: ../../smartstudio.pro D:/Qt/6.7.3/llvm-mingw_64/mkspecs/win32-clang-g+
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/uic.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/qmake_use.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/file_copies.prf \
-		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/win32/windows.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/testcase_targets.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/exceptions.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/yacc.prf \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/lex.prf \
 		../../smartstudio.pro \
+		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Charts.prl \
+		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6OpenGLWidgets.prl \
+		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6PrintSupport.prl \
 		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Widgets.prl \
+		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6OpenGL.prl \
+		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Svg.prl \
 		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Gui.prl \
 		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Sql.prl \
 		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Core.prl \
-		D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6EntryPoint.prl \
 		D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/build_pass.prf
 	$(QMAKE) -o Makefile ..\..\smartstudio.pro -spec win32-clang-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/spec_pre.prf:
@@ -732,9 +737,11 @@ D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/exclusive_builds.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/toolchain.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/default_pre.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/win32/default_pre.prf:
+../../Qt-QrCodeGenerator-main/Qt-QrCodeGenerator.pri:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/resolve_config.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/exclusive_builds_post.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/default_post.prf:
+D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/win32/console.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/qml_debug.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/precompile_header.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/warn_on.prf:
@@ -747,41 +754,44 @@ D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/win32/opengl.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/uic.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/qmake_use.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/file_copies.prf:
-D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/win32/windows.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/testcase_targets.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/exceptions.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/yacc.prf:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/lex.prf:
 ../../smartstudio.pro:
+D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Charts.prl:
+D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6OpenGLWidgets.prl:
+D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6PrintSupport.prl:
 D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Widgets.prl:
+D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6OpenGL.prl:
+D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Svg.prl:
 D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Gui.prl:
 D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Sql.prl:
 D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6Core.prl:
-D:/Qt/6.7.3/llvm-mingw_64/lib/Qt6EntryPoint.prl:
 D:/Qt/6.7.3/llvm-mingw_64/mkspecs/features/build_pass.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\..\smartstudio.pro -spec win32-clang-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 
 qmake_all: FORCE
 
-make_first: debug-make_first release-make_first  FORCE
-all: debug-all release-all  FORCE
-clean: debug-clean release-clean  FORCE
-distclean: debug-distclean release-distclean  FORCE
+make_first: release-make_first debug-make_first  FORCE
+all: release-all debug-all  FORCE
+clean: release-clean debug-clean  FORCE
+distclean: release-distclean debug-distclean  FORCE
 	-$(DEL_FILE) Makefile
 	-$(DEL_FILE) .qmake.stash
 
-debug-mocclean:
-	$(MAKE) -f $(MAKEFILE).Debug mocclean
 release-mocclean:
 	$(MAKE) -f $(MAKEFILE).Release mocclean
-mocclean: debug-mocclean release-mocclean
+debug-mocclean:
+	$(MAKE) -f $(MAKEFILE).Debug mocclean
+mocclean: release-mocclean debug-mocclean
 
-debug-mocables:
-	$(MAKE) -f $(MAKEFILE).Debug mocables
 release-mocables:
 	$(MAKE) -f $(MAKEFILE).Release mocables
-mocables: debug-mocables release-mocables
+debug-mocables:
+	$(MAKE) -f $(MAKEFILE).Debug mocables
+mocables: release-mocables debug-mocables
 
 check: first
 
@@ -790,5 +800,5 @@ FORCE:
 
 .SUFFIXES:
 
-$(MAKEFILE).Debug: Makefile
 $(MAKEFILE).Release: Makefile
+$(MAKEFILE).Debug: Makefile

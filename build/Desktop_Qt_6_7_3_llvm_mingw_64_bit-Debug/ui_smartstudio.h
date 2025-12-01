@@ -38,8 +38,10 @@ public:
     QLabel *label_6;
     QComboBox *comboBox_6;
     QPushButton *pushButton_79;
-    QPushButton *pushButton_99;
     QTableWidget *tableWidget_4;
+    QGroupBox *groupBox_15;
+    QWidget *widget_chart_types;
+    QWidget *widget_chart_loc;
     QGroupBox *groupBox_14;
     QLabel *label_150;
     QLabel *label_151;
@@ -67,8 +69,9 @@ public:
     QLabel *label_158;
     QLabel *label_159;
     QComboBox *comboBox_11;
-    QLabel *label_10;
-    QLabel *label_9;
+    QPushButton *button_avail_generate_2;
+    QLabel *label_qr_preview_2;
+    QPushButton *pushButton_99;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -86,15 +89,15 @@ public:
         page_5->setObjectName("page_5");
         label_6 = new QLabel(page_5);
         label_6->setObjectName("label_6");
-        label_6->setGeometry(QRect(50, 0, 1311, 681));
+        label_6->setGeometry(QRect(30, -30, 1311, 681));
         label_6->setPixmap(QPixmap(QString::fromUtf8("../../Downloads/aarriere plan.png")));
         label_6->setScaledContents(true);
         comboBox_6 = new QComboBox(page_5);
         comboBox_6->setObjectName("comboBox_6");
-        comboBox_6->setGeometry(QRect(580, 180, 82, 28));
+        comboBox_6->setGeometry(QRect(570, 160, 82, 28));
         pushButton_79 = new QPushButton(page_5);
         pushButton_79->setObjectName("pushButton_79");
-        pushButton_79->setGeometry(QRect(1100, 570, 181, 51));
+        pushButton_79->setGeometry(QRect(710, 100, 181, 51));
         pushButton_79->setStyleSheet(QString::fromUtf8("QLineEdit, QDateTimeEdit {\n"
 "    font-family: \"Arial\";\n"
 "    font-size: 14px;\n"
@@ -123,35 +126,6 @@ public:
         icon.addFile(QString::fromUtf8(":/icons/icones/addition.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
         pushButton_79->setIcon(icon);
         pushButton_79->setIconSize(QSize(20, 20));
-        pushButton_99 = new QPushButton(page_5);
-        pushButton_99->setObjectName("pushButton_99");
-        pushButton_99->setGeometry(QRect(820, 570, 171, 51));
-        pushButton_99->setStyleSheet(QString::fromUtf8("QLineEdit, QDateTimeEdit {\n"
-"    font-family: \"Arial\";\n"
-"    font-size: 14px;\n"
-"    color: white;\n"
-"    background-color: #0A0A2A;\n"
-"    border: 2px solid #1E1E5A;\n"
-"    border-radius: 5px;\n"
-"    padding: 5px;\n"
-"}\n"
-"\n"
-"QPushButton {\n"
-"    font-family: \"Arial Black\";\n"
-"    font-size: 14px;\n"
-"    color: white;\n"
-"    background-color: #0A0A2A;\n"
-"    border: 2px solid #1E1E5A;\n"
-"    border-radius: 5px;\n"
-"    padding: 5px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #1E1E5A;\n"
-"}\n"
-""));
-        pushButton_99->setIcon(icon);
-        pushButton_99->setIconSize(QSize(20, 20));
         tableWidget_4 = new QTableWidget(page_5);
         if (tableWidget_4->columnCount() < 20)
             tableWidget_4->setColumnCount(20);
@@ -229,6 +203,15 @@ public:
 "}"));
         tableWidget_4->setRowCount(6);
         tableWidget_4->setColumnCount(20);
+        groupBox_15 = new QGroupBox(page_5);
+        groupBox_15->setObjectName("groupBox_15");
+        groupBox_15->setGeometry(QRect(460, 460, 941, 240));
+        widget_chart_types = new QWidget(groupBox_15);
+        widget_chart_types->setObjectName("widget_chart_types");
+        widget_chart_types->setGeometry(QRect(10, 20, 460, 200));
+        widget_chart_loc = new QWidget(widget_chart_types);
+        widget_chart_loc->setObjectName("widget_chart_loc");
+        widget_chart_loc->setGeometry(QRect(130, -40, 451, 200));
         groupBox_14 = new QGroupBox(page_5);
         groupBox_14->setObjectName("groupBox_14");
         groupBox_14->setGeometry(QRect(60, 40, 391, 591));
@@ -564,7 +547,7 @@ public:
         pushButton_76->setIconSize(QSize(20, 20));
         l2_29 = new QLineEdit(page_5);
         l2_29->setObjectName("l2_29");
-        l2_29->setGeometry(QRect(920, 170, 131, 41));
+        l2_29->setGeometry(QRect(910, 170, 131, 41));
         l2_29->setStyleSheet(QString::fromUtf8("QLineEdit, QDateTimeEdit {\n"
 "    font-family: \"Arial\";\n"
 "    font-size: 14px;\n"
@@ -592,7 +575,7 @@ public:
 ""));
         label_158 = new QLabel(page_5);
         label_158->setObjectName("label_158");
-        label_158->setGeometry(QRect(720, 180, 201, 20));
+        label_158->setGeometry(QRect(710, 180, 201, 20));
         label_158->setStyleSheet(QString::fromUtf8("QLabel {\n"
 "	font: 6pt \"Segoe UI\";\n"
 "    font-size: 20px;\n"
@@ -602,7 +585,7 @@ public:
 ""));
         label_159 = new QLabel(page_5);
         label_159->setObjectName("label_159");
-        label_159->setGeometry(QRect(450, 170, 131, 31));
+        label_159->setGeometry(QRect(450, 180, 131, 31));
         label_159->setStyleSheet(QString::fromUtf8("QLabel {\n"
 "	font: 6pt \"Segoe UI\";\n"
 "    font-size: 20px;\n"
@@ -619,7 +602,7 @@ public:
         comboBox_11->addItem(QString());
         comboBox_11->addItem(QString());
         comboBox_11->setObjectName("comboBox_11");
-        comboBox_11->setGeometry(QRect(550, 170, 141, 41));
+        comboBox_11->setGeometry(QRect(560, 170, 141, 41));
         comboBox_11->setStyleSheet(QString::fromUtf8("QComboBox {\n"
 "    font-family: \"Arial\";\n"
 "    font-size: 14px;\n"
@@ -630,16 +613,42 @@ public:
 "    padding: 5px;\n"
 "}\n"
 ""));
-        label_10 = new QLabel(page_5);
-        label_10->setObjectName("label_10");
-        label_10->setGeometry(QRect(492, 60, 761, 71));
-        label_10->setPixmap(QPixmap(QString::fromUtf8("../../Downloads/abed bel micro.png")));
-        label_10->setScaledContents(true);
-        label_9 = new QLabel(page_5);
-        label_9->setObjectName("label_9");
-        label_9->setGeometry(QRect(410, 10, 901, 161));
-        label_9->setPixmap(QPixmap(QString::fromUtf8("../../Downloads/9220705.jpg")));
-        label_9->setScaledContents(true);
+        button_avail_generate_2 = new QPushButton(page_5);
+        button_avail_generate_2->setObjectName("button_avail_generate_2");
+        button_avail_generate_2->setGeometry(QRect(920, 60, 120, 24));
+        label_qr_preview_2 = new QLabel(page_5);
+        label_qr_preview_2->setObjectName("label_qr_preview_2");
+        label_qr_preview_2->setGeometry(QRect(1060, 0, 241, 221));
+        label_qr_preview_2->setFrameShape(QFrame::Shape::Box);
+        pushButton_99 = new QPushButton(page_5);
+        pushButton_99->setObjectName("pushButton_99");
+        pushButton_99->setGeometry(QRect(270, 630, 171, 51));
+        pushButton_99->setStyleSheet(QString::fromUtf8("QLineEdit, QDateTimeEdit {\n"
+"    font-family: \"Arial\";\n"
+"    font-size: 14px;\n"
+"    color: white;\n"
+"    background-color: #0A0A2A;\n"
+"    border: 2px solid #1E1E5A;\n"
+"    border-radius: 5px;\n"
+"    padding: 5px;\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    font-family: \"Arial Black\";\n"
+"    font-size: 14px;\n"
+"    color: white;\n"
+"    background-color: #0A0A2A;\n"
+"    border: 2px solid #1E1E5A;\n"
+"    border-radius: 5px;\n"
+"    padding: 5px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #1E1E5A;\n"
+"}\n"
+""));
+        pushButton_99->setIcon(icon);
+        pushButton_99->setIconSize(QSize(20, 20));
         stackedWidget->addWidget(page_5);
         smartstudio->setCentralWidget(centralwidget);
         menubar = new QMenuBar(smartstudio);
@@ -663,7 +672,6 @@ public:
         smartstudio->setWindowTitle(QCoreApplication::translate("smartstudio", "smartstudio", nullptr));
         label_6->setText(QString());
         pushButton_79->setText(QCoreApplication::translate("smartstudio", "Exportation format PDF  ", nullptr));
-        pushButton_99->setText(QCoreApplication::translate("smartstudio", "quitter", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_4->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("smartstudio", "idMateriel", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_4->horizontalHeaderItem(1);
@@ -689,6 +697,7 @@ public:
         tableWidget_4->setSortingEnabled(false);
         tableWidget_4->setSortingEnabled(__sortingEnabled);
 
+        groupBox_15->setTitle(QCoreApplication::translate("smartstudio", "Statistiques", nullptr));
         groupBox_14->setTitle(QCoreApplication::translate("smartstudio", "Ajouter Materielle", nullptr));
         label_150->setText(QCoreApplication::translate("smartstudio", "idMateriel", nullptr));
         label_151->setText(QString());
@@ -723,8 +732,9 @@ public:
         comboBox_11->setItemText(5, QCoreApplication::translate("smartstudio", "Type", nullptr));
         comboBox_11->setItemText(6, QCoreApplication::translate("smartstudio", "Suivi", nullptr));
 
-        label_10->setText(QString());
-        label_9->setText(QString());
+        button_avail_generate_2->setText(QCoreApplication::translate("smartstudio", "G\303\251n\303\251rer QR", nullptr));
+        label_qr_preview_2->setText(QString());
+        pushButton_99->setText(QCoreApplication::translate("smartstudio", "quitter", nullptr));
     } // retranslateUi
 
 };

@@ -9,6 +9,7 @@
 #include <QVariant>
 #include <QPdfWriter>
 #include <QPainter>
+#include <QPixmap>
 #include <QFileDialog>
 #include <QTextDocument>
 #include <QTextCursor>
@@ -20,6 +21,15 @@
 #include <QPageLayout>
 #include <QDate>
 
+#include <QtCharts/QChartView>
+#include <QtCharts/QChart>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QBarCategoryAxis>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QValueAxis>
+ 
+
 
 
 
@@ -28,19 +38,28 @@ smartstudio::smartstudio(QWidget *parent)
     , ui(new Ui::smartstudio)
 {
     ui->setupUi(this);
-    
+
     // Connect the selection changed signal manually if needed
-    connect(ui->tableWidget_4, &QTableWidget::itemSelectionChanged, 
+    connect(ui->tableWidget_4, &QTableWidget::itemSelectionChanged,
             this, &smartstudio::on_tableWidget_4_itemSelectionChanged);
-    
+    connect(ui->tableWidget_4, &QTableView::clicked, this, &smartstudio::on_tab_commqr_clicked);
     // Connect search and sort signals
-    connect(ui->l2_29, &QLineEdit::textChanged, 
+    connect(ui->l2_29, &QLineEdit::textChanged,
             this, &smartstudio::on_l2_29_textChanged);
-    
+
+
     // Load data after UI is fully initialized (delay to ensure database connection is ready)
     QTimer::singleShot(200, this, [this]() {
         loadTableData();
     });
+
+    chartTypesView = new QChartView(ui->widget_chart_types);
+    chartTypesView->setRenderHint(QPainter::Antialiasing);
+    chartTypesView->setGeometry(0, 0, ui->widget_chart_types->width(), ui->widget_chart_types->height());
+
+    chartLocView = new QChartView(ui->widget_chart_loc);
+    chartLocView->setRenderHint(QPainter::Antialiasing);
+    chartLocView->setGeometry(0, 0, ui->widget_chart_loc->width(), ui->widget_chart_loc->height());
 }
 
 smartstudio::~smartstudio()
@@ -54,19 +73,20 @@ smartstudio::~smartstudio()
 void smartstudio::loadTableData()
 {
     materielle.lire(ui->tableWidget_4, this);
+    updateCharts();
 }
 
 // Get data from UI fields
 Materielle::MaterielData smartstudio::getDataFromUI()
 {
     Materielle::MaterielData data;
-    
+
     data.idMateriel = ui->lineEdit_47->text();
     data.etatMateriel = ui->l2_27->text();
     data.localisation = ui->comboBox_7->currentText();
     data.dateAchat = ui->dateTimeEdit_15->date();
     data.nbMateriel = ui->l2_28->text().toInt();
-    
+
     // Get type materiel from checkboxes
     QString typeMateriel = "";
     if (ui->checkBox_13->isChecked()) typeMateriel += "Camera ";
@@ -75,10 +95,10 @@ Materielle::MaterielData smartstudio::getDataFromUI()
     if (ui->checkBox_17->isChecked()) typeMateriel += "PC ";
     if (ui->checkBox_18->isChecked()) typeMateriel += "Tablette graphique ";
     data.typeMateriel = typeMateriel.trimmed();
-    
+
     // Default SUIVI value if not provided
     data.suivi = "En cours";
-    
+
     return data;
 }
 
@@ -90,7 +110,7 @@ void smartstudio::clearInputs()
     ui->l2_28->clear();
     ui->comboBox_7->setCurrentIndex(0);
     ui->dateTimeEdit_15->setDate(QDate::currentDate());
-    
+
     // Clear checkboxes
     ui->checkBox_13->setChecked(false);
     ui->checkBox_14->setChecked(false);
@@ -109,14 +129,14 @@ void smartstudio::refreshTable()
 void smartstudio::on_pushButton_74_clicked()
 {
     Materielle::MaterielData data = getDataFromUI();
-    
+
     // Validation
-    if (data.idMateriel.isEmpty() || data.etatMateriel.isEmpty() || 
+    if (data.idMateriel.isEmpty() || data.etatMateriel.isEmpty() ||
         data.localisation.isEmpty() || data.typeMateriel.isEmpty()) {
         QMessageBox::warning(this, "Attention", "Veuillez remplir tous les champs obligatoires!");
         return;
     }
-    
+
     if (materielle.ajouter(data, this)) {
         clearInputs();
         refreshTable();
@@ -138,7 +158,7 @@ void smartstudio::on_tableWidget_4_itemSelectionChanged()
         ui->lineEdit_47->setText(ui->tableWidget_4->item(currentRow, 0)->text());
         if (ui->tableWidget_4->item(currentRow, 1))
             ui->l2_27->setText(ui->tableWidget_4->item(currentRow, 1)->text());
-        
+
         // Set combo box
         if (ui->tableWidget_4->item(currentRow, 2)) {
             QString localisation = ui->tableWidget_4->item(currentRow, 2)->text();
@@ -147,7 +167,7 @@ void smartstudio::on_tableWidget_4_itemSelectionChanged()
                 ui->comboBox_7->setCurrentIndex(index);
             }
         }
-        
+
         // Set date
         if (ui->tableWidget_4->item(currentRow, 3)) {
             QDate date = QDate::fromString(ui->tableWidget_4->item(currentRow, 3)->text(), "yyyy-MM-dd");
@@ -155,10 +175,10 @@ void smartstudio::on_tableWidget_4_itemSelectionChanged()
                 ui->dateTimeEdit_15->setDate(date);
             }
         }
-        
+
         if (ui->tableWidget_4->item(currentRow, 4))
             ui->l2_28->setText(ui->tableWidget_4->item(currentRow, 4)->text());
-        
+
         // Set type materiel checkboxes
         if (ui->tableWidget_4->item(currentRow, 5)) {
             QString typeMateriel = ui->tableWidget_4->item(currentRow, 5)->text();
@@ -179,10 +199,10 @@ void smartstudio::on_pushButton_75_clicked()
         QMessageBox::warning(this, "Attention", "Veuillez sélectionner un matériel à modifier!");
         return;
     }
-    
+
     QString oldId = ui->tableWidget_4->item(currentRow, 0)->text();
     Materielle::MaterielData data = getDataFromUI();
-    
+
     // Get SUIVI from table if available
     if (ui->tableWidget_4->item(currentRow, 6)) {
         QString suivi = ui->tableWidget_4->item(currentRow, 6)->text();
@@ -190,14 +210,14 @@ void smartstudio::on_pushButton_75_clicked()
             data.suivi = suivi;
         }
     }
-    
+
     // Validation
-    if (data.idMateriel.isEmpty() || data.etatMateriel.isEmpty() || 
+    if (data.idMateriel.isEmpty() || data.etatMateriel.isEmpty() ||
         data.localisation.isEmpty() || data.typeMateriel.isEmpty()) {
         QMessageBox::warning(this, "Attention", "Veuillez remplir tous les champs obligatoires!");
         return;
     }
-    
+
     if (materielle.modifier(oldId, data, this)) {
         clearInputs();
         refreshTable();
@@ -212,19 +232,88 @@ void smartstudio::on_pushButton_76_clicked()
         QMessageBox::warning(this, "Attention", "Veuillez sélectionner un matériel à supprimer!");
         return;
     }
-    
+
     QString idMateriel = ui->tableWidget_4->item(currentRow, 0)->text();
-    
-    int ret = QMessageBox::question(this, "Confirmation", 
+
+    int ret = QMessageBox::question(this, "Confirmation",
                                     "Êtes-vous sûr de vouloir supprimer ce matériel (ID: " + idMateriel + ")?",
                                     QMessageBox::Yes | QMessageBox::No);
-    
+
     if (ret == QMessageBox::Yes) {
         if (materielle.supprimer(idMateriel, this)) {
             clearInputs();
             refreshTable();
         }
     }
+}
+//statistics
+void smartstudio::updateCharts()
+{
+    int camera = 0, micro = 0, pc = 0, tablette = 0;
+    int onsite = 0, remote = 0, hybrid = 0;
+
+    for (int row = 0; row < ui->tableWidget_4->rowCount(); ++row) {
+        QTableWidgetItem *typeItem = ui->tableWidget_4->item(row, 5);
+        QTableWidgetItem *nbItem = ui->tableWidget_4->item(row, 4);
+        int nb = nbItem ? nbItem->text().toInt() : 0;
+        if (typeItem) {
+            QString t = typeItem->text();
+            if (t.contains("camera", Qt::CaseInsensitive)) camera += nb;
+            if (t.contains("micro", Qt::CaseInsensitive)) micro += nb;
+            if (t.contains("pc", Qt::CaseInsensitive)) pc += nb;
+            if (t.contains("tablette", Qt::CaseInsensitive)) tablette += nb;
+        }
+        QTableWidgetItem *locItem = ui->tableWidget_4->item(row, 2);
+        if (locItem) {
+            QString l = locItem->text();
+            if (l.contains("On site", Qt::CaseInsensitive)) onsite += nb;
+            else if (l.contains("Remote", Qt::CaseInsensitive)) remote += nb;
+            else if (l.contains("Hybrid", Qt::CaseInsensitive)) hybrid += nb;
+        }
+    }
+
+    auto *barSet = new QBarSet("Types");
+    *barSet << camera << micro << pc << tablette;
+    auto *series = new QBarSeries();
+    series->append(barSet);
+
+    auto *chartTypes = new QChart();
+    chartTypes->addSeries(series);
+    chartTypes->setTitle("Répartition par type");
+    chartTypes->setAnimationOptions(QChart::SeriesAnimations);
+
+    QStringList categories;
+    categories << "Camera" << "Micro" << "PC" << "Tablette";
+    auto *axisX = new QBarCategoryAxis();
+    axisX->append(categories);
+    chartTypes->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+
+    auto *axisY = new QValueAxis();
+    axisY->setTitleText("Nombre");
+    axisY->setLabelFormat("%d");
+    chartTypes->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
+
+    chartTypesView->setChart(chartTypes);
+    chartTypesView->setRubberBand(QChartView::RectangleRubberBand);
+
+    auto *pieSeries = new QPieSeries();
+    auto *sliceOnsite = pieSeries->append("On site", onsite);
+    auto *sliceRemote = pieSeries->append("Remote", remote);
+    auto *sliceHybrid = pieSeries->append("Hybrid", hybrid);
+    pieSeries->setLabelsVisible(true);
+    sliceOnsite->setLabel(QString("On site: %1").arg(onsite));
+    sliceRemote->setLabel(QString("Remote: %1").arg(remote));
+    sliceHybrid->setLabel(QString("Hybrid: %1").arg(hybrid));
+
+    auto *chartLoc = new QChart();
+    chartLoc->addSeries(pieSeries);
+    chartLoc->setTitle("Répartition par localisation");
+    chartLoc->setAnimationOptions(QChart::SeriesAnimations);
+
+    chartLocView->setChart(chartLoc);
+    chartLocView->setRubberBand(QChartView::RectangleRubberBand);
 }
 void smartstudio::on_pushButton_79_clicked()
 {
@@ -255,7 +344,7 @@ void smartstudio::on_pushButton_79_clicked()
     QTextCharFormat titleFormat;
     titleFormat.setFontPointSize(18);
     titleFormat.setFontWeight(QFont::Bold);
-    titleFormat.setFontFamily("Arial");
+    titleFormat.setFontFamilies(QStringList() << "Arial");
 
     QTextBlockFormat centerFormat;
     centerFormat.setAlignment(Qt::AlignCenter);
@@ -266,7 +355,7 @@ void smartstudio::on_pushButton_79_clicked()
     // --- Date ---
     QTextCharFormat dateFormat;
     dateFormat.setFontPointSize(11);
-    dateFormat.setFontFamily("Arial");
+    dateFormat.setFontFamilies(QStringList() << "Arial");
 
     QDate today = QDate::currentDate();
     cursor.insertText("Date : " + today.toString("dd/MM/yyyy"), dateFormat);
@@ -297,12 +386,12 @@ void smartstudio::on_pushButton_79_clicked()
     QTextCharFormat headerFormat;
     headerFormat.setFontPointSize(11);
     headerFormat.setFontWeight(QFont::Bold);
-    headerFormat.setFontFamily("Arial");
+    headerFormat.setFontFamilies(QStringList() << "Arial");
 
     // Style pour le corps
     QTextCharFormat bodyFormat;
     bodyFormat.setFontPointSize(10);
-    bodyFormat.setFontFamily("Arial");
+    bodyFormat.setFontFamilies(QStringList() << "Arial");
 
     // 5) Remplir l'en-tête avec les titres de colonnes du QTableWidget
     for (int col = 0; col < cols; ++col) {
@@ -381,7 +470,7 @@ void smartstudio::on_pushButton_79_clicked()
 void smartstudio::on_l2_29_textChanged(const QString &text)
 {
     QString searchText = text.trimmed();
-    
+
     // If search is empty, show all rows
     if (searchText.isEmpty()) {
         for (int row = 0; row < ui->tableWidget_4->rowCount(); ++row) {
@@ -389,11 +478,11 @@ void smartstudio::on_l2_29_textChanged(const QString &text)
         }
         return;
     }
-    
+
     // Filter table rows based on search text
     for (int row = 0; row < ui->tableWidget_4->rowCount(); ++row) {
         bool match = false;
-        
+
         // Search in all columns
         for (int col = 0; col < ui->tableWidget_4->columnCount(); ++col) {
             QTableWidgetItem *item = ui->tableWidget_4->item(row, col);
@@ -405,7 +494,7 @@ void smartstudio::on_l2_29_textChanged(const QString &text)
                 }
             }
         }
-        
+
         // Show or hide row based on match
         ui->tableWidget_4->setRowHidden(row, !match);
     }
@@ -417,14 +506,67 @@ void smartstudio::on_comboBox_8_currentIndexChanged(int index)
     if (index < 0 || index >= ui->tableWidget_4->columnCount()) {
         return;
     }
-    
+
     // Disable sorting temporarily to avoid recursion
     bool wasSortingEnabled = ui->tableWidget_4->isSortingEnabled();
     ui->tableWidget_4->setSortingEnabled(false);
-    
+
     // Sort the table by the selected column (ascending)
     ui->tableWidget_4->sortItems(index, Qt::AscendingOrder);
-    
+
     // Re-enable sorting if it was enabled
     ui->tableWidget_4->setSortingEnabled(wasSortingEnabled);
+}
+// Availability filter/search removed per request
+void smartstudio::on_tab_commqr_clicked(const QModelIndex &index)
+{
+    QString id = ui->tableWidget_4->model()->data(index.sibling(index.row(), 0)).toString();
+    if (id.isEmpty()) {
+        QMessageBox::warning(this, "Attention", "ID matériel introuvable sur la ligne sélectionnée.");
+        return;
+    }
+
+    Materielle::MaterielData d = materielle.getMaterielById(id);
+    if (d.idMateriel.isEmpty()) {
+        QMessageBox::critical(this, tr("Erreur"), tr("Impossible de récupérer les données du matériel."));
+        return;
+    }
+
+    QString tout = d.etatMateriel;
+
+    QImage image = m_generator.generateQr(tout, 140, 2);
+    QPixmap pm = QPixmap::fromImage(image).scaled(ui->label_qr_preview_2->size(), Qt::KeepAspectRatio, Qt::FastTransformation);
+    ui->label_qr_preview_2->setPixmap(pm);
+
+    checkMaterialStateForAlert(d);
+}
+
+void smartstudio::checkMaterialStateForAlert(const Materielle::MaterielData &data)
+{
+    if (materialNeedsMaintenance(data)) {
+        QMessageBox::warning(
+            this,
+            tr("Alerte de maintenance"),
+            tr("Le matériel %1 (%2) nécessite une vérification/prévention.")
+                .arg(data.idMateriel, data.etatMateriel));
+        statusBar()->showMessage(
+            tr("Maintenance requise pour %1").arg(data.idMateriel), 6000);
+    } else {
+        statusBar()->showMessage(
+            tr("Matériel %1 en état normal").arg(data.idMateriel), 4000);
+    }
+}
+
+bool smartstudio::materialNeedsMaintenance(const Materielle::MaterielData &data) const
+{
+    const QString state = data.etatMateriel.toLower();
+    const QStringList indicators = {"maintenance", "réparation", "panne", "défaut", "casse", "cassé", "usé", "urgent"};
+
+    for (const QString &indicator : indicators) {
+        if (state.contains(indicator, Qt::CaseInsensitive)) {
+            return true;
+        }
+    }
+
+    return false;
 }

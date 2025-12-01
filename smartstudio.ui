@@ -30,8 +30,8 @@
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>0</y>
+        <x>30</x>
+        <y>-30</y>
         <width>1311</width>
         <height>681</height>
        </rect>
@@ -49,8 +49,8 @@
      <widget class="QComboBox" name="comboBox_6">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>180</y>
+        <x>570</x>
+        <y>160</y>
         <width>82</width>
         <height>28</height>
        </rect>
@@ -59,8 +59,8 @@
      <widget class="QPushButton" name="pushButton_79">
       <property name="geometry">
        <rect>
-        <x>1100</x>
-        <y>570</y>
+        <x>710</x>
+        <y>100</y>
         <width>181</width>
         <height>51</height>
        </rect>
@@ -93,55 +93,6 @@ QPushButton:hover {
       </property>
       <property name="text">
        <string>Exportation format PDF  </string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>:/icons/icones/addition.png</normaloff>:/icons/icones/addition.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>20</width>
-        <height>20</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_99">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>570</y>
-        <width>171</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit, QDateTimeEdit {
-    font-family: &quot;Arial&quot;;
-    font-size: 14px;
-    color: white;
-    background-color: #0A0A2A;
-    border: 2px solid #1E1E5A;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-QPushButton {
-    font-family: &quot;Arial Black&quot;;
-    font-size: 14px;
-    color: white;
-    background-color: #0A0A2A;
-    border: 2px solid #1E1E5A;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-QPushButton:hover {
-    background-color: #1E1E5A;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>quitter</string>
       </property>
       <property name="icon">
        <iconset>
@@ -321,6 +272,39 @@ QHeaderView::section {
         <string/>
        </property>
       </item>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_15">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>460</y>
+        <width>941</width>
+        <height>240</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Statistiques</string>
+      </property>
+      <widget class="QWidget" name="widget_chart_types" native="true">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>460</width>
+         <height>200</height>
+        </rect>
+       </property>
+       <widget class="QWidget" name="widget_chart_loc" native="true">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>-40</y>
+          <width>451</width>
+          <height>200</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_14">
       <property name="geometry">
@@ -956,7 +940,7 @@ QPushButton:hover {
      <widget class="QLineEdit" name="l2_29">
       <property name="geometry">
        <rect>
-        <x>920</x>
+        <x>910</x>
         <y>170</y>
         <width>131</width>
         <height>41</height>
@@ -993,7 +977,7 @@ QPushButton:hover {
      <widget class="QLabel" name="label_158">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>710</x>
         <y>180</y>
         <width>201</width>
         <height>20</height>
@@ -1016,7 +1000,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>450</x>
-        <y>170</y>
+        <y>180</y>
         <width>131</width>
         <height>31</height>
        </rect>
@@ -1037,7 +1021,7 @@ QPushButton:hover {
      <widget class="QComboBox" name="comboBox_11">
       <property name="geometry">
        <rect>
-        <x>550</x>
+        <x>560</x>
         <y>170</y>
         <width>141</width>
         <height>41</height>
@@ -1091,42 +1075,82 @@ QPushButton:hover {
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="label_10">
+     <widget class="QPushButton" name="button_avail_generate_2">
       <property name="geometry">
        <rect>
-        <x>492</x>
+        <x>920</x>
         <y>60</y>
-        <width>761</width>
-        <height>71</height>
+        <width>120</width>
+        <height>24</height>
        </rect>
       </property>
       <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>../../Downloads/abed bel micro.png</pixmap>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
+       <string>Générer QR</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_9">
+     <widget class="QLabel" name="label_qr_preview_2">
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>10</y>
-        <width>901</width>
-        <height>161</height>
+        <x>1060</x>
+        <y>0</y>
+        <width>241</width>
+        <height>221</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::Box</enum>
       </property>
       <property name="text">
        <string/>
       </property>
-      <property name="pixmap">
-       <pixmap>../../Downloads/9220705.jpg</pixmap>
+     </widget>
+     <widget class="QPushButton" name="pushButton_99">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>630</y>
+        <width>171</width>
+        <height>51</height>
+       </rect>
       </property>
-      <property name="scaledContents">
-       <bool>true</bool>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit, QDateTimeEdit {
+    font-family: &quot;Arial&quot;;
+    font-size: 14px;
+    color: white;
+    background-color: #0A0A2A;
+    border: 2px solid #1E1E5A;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton {
+    font-family: &quot;Arial Black&quot;;
+    font-size: 14px;
+    color: white;
+    background-color: #0A0A2A;
+    border: 2px solid #1E1E5A;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton:hover {
+    background-color: #1E1E5A;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>quitter</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>:/icons/icones/addition.png</normaloff>:/icons/icones/addition.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
       </property>
      </widget>
     </widget>
