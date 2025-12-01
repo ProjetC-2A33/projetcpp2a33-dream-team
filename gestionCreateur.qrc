@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file alias="PieChartStat.qml">qml/PieChartStat.qml</file>
+    </qresource>
+</RCC>
+
