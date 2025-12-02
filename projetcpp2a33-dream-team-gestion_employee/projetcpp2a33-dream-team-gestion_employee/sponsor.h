@@ -39,8 +39,7 @@ public:
     static QList<Sponsor> trierParNom(bool ordreAscendant = true);
     static QMap<QString, int> getStatistiquesPartenariat();
     static QList<Sponsor> rechercherParNomEtTelephone(const QString &filtre, const QString &orderBy = QString());
-    static QList<Sponsor> trierParBudget(bool ordreAscendant);
-
+static QList<Sponsor> trierParBudget(bool ordreAscendant);
     // Getters
     int getIdSponsor() const;
     QString getNom() const;
