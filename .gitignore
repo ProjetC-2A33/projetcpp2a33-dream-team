@@ -1,0 +1,17 @@
+build/
+*/build*/
+*/build-*/
+.qtc_clangd/
+*/.qtc_clangd/
+*.user
+*.user.*
+*.pro.user
+*.o
+*.obj
+*.cache
+*.tmp
+*.log
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+Makefile*
