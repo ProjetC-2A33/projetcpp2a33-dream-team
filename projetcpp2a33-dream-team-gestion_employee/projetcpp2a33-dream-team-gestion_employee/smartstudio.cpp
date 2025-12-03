@@ -407,10 +407,13 @@ smartstudio::~smartstudio()
 {
     delete ui;
 }
-
+#include "pagecreateur.h"
 void smartstudio::on_pushButton_82_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(6);
+    pagecreateur *Cp;
+    hide();
+    Cp = new pagecreateur(this);
+    Cp->show();
 }
 
 void smartstudio::on_pushButton_clicked()

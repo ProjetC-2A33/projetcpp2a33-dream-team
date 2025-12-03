@@ -20,9 +20,9 @@ Connection& Connection::createInstance() {
 
 bool Connection::createConnection() {
     // Paramètres de connexion
-    db.setDatabaseName("Source_Projet2A");
-    db.setUserName("layth");
-    db.setPassword("layth");
+    db.setDatabaseName("projet");//inserer le nom de la source de données ODBC
+    db.setUserName("fatma");//inserer nom de l'utilisateur
+    db.setPassword("fatma");//inserer mot de passe de cet utilisateur
 
     if (db.open()) {
         qDebug() << "Connexion établie";

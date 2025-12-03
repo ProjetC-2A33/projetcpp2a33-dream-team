@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets sql printsupport charts widgets network
+QT       += core gui widgets sql printsupport charts widgets network qml quickwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Atelier_Connexion
@@ -24,12 +24,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    createurcrud.cpp \
     employe.cpp \
     main.cpp \
     connection.cpp \
     mainwindow.cpp \
     materielle.cpp \
+    pagecreateur.cpp \
     projet.cpp \
+    qrcodegen.cpp \
     smartstudio.cpp \
     customtableview.cpp \
     employeepiewidget.cpp \
@@ -37,10 +40,13 @@ SOURCES += \
 
 HEADERS += \
     connection.h \
+    createurcrud.h \
     employe.h \
     mainwindow.h \
     materielle.h \
+    pagecreateur.h \
     projet.h \
+    qrcodegen.h \
     smartstudio.h \
     customtableview.h \
     employeepiewidget.h \
@@ -48,9 +54,13 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui \
+    pagecreateur.ui \
     smartstudio.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Ressources.qrc

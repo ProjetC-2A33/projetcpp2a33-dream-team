@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QGroupBox" name="groupBox_15">
@@ -3524,7 +3524,7 @@ QPushButton:hover {
          </rect>
         </property>
         <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
+         <enum>QFrame::Shape::NoFrame</enum>
         </property>
         <property name="text">
          <string/>
@@ -5748,7 +5748,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1410</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
