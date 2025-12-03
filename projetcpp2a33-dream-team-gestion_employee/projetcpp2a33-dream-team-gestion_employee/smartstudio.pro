@@ -27,7 +27,9 @@ SOURCES += \
     employe.cpp \
     main.cpp \
     connection.cpp \
+    mainwindow.cpp \
     materielle.cpp \
+    projet.cpp \
     smartstudio.cpp \
     customtableview.cpp \
     employeepiewidget.cpp \
@@ -36,13 +38,16 @@ SOURCES += \
 HEADERS += \
     connection.h \
     employe.h \
+    mainwindow.h \
     materielle.h \
+    projet.h \
     smartstudio.h \
     customtableview.h \
     employeepiewidget.h \
     sponsor.h
 
 FORMS += \
+    mainwindow.ui \
     smartstudio.ui
 
 # Default rules for deployment.

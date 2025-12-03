@@ -203,13 +203,14 @@ smartstudio::smartstudio(QWidget *parent)
          //  loadTableData();
       // });
 
-       chartTypesView = new QChartView(ui->widget_chart_types);
+      /*chartTypesView = new QChartView(ui->widget_chart_types);
        chartTypesView->setRenderHint(QPainter::Antialiasing);
        chartTypesView->setGeometry(0, 0, ui->widget_chart_types->width(), ui->widget_chart_types->height());
 
        chartLocView = new QChartView(ui->widget_chart_loc);
        chartLocView->setRenderHint(QPainter::Antialiasing);
        chartLocView->setGeometry(0, 0, ui->widget_chart_loc->width(), ui->widget_chart_loc->height());
+       */
 }
 
 void smartstudio::updateEmployeeTypeChart()
@@ -426,10 +427,13 @@ void smartstudio::on_pushButton_99_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
-
+#include "mainwindow.h"
 void smartstudio::on_pushButton_85_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(4);
+    MainWindow *Lp;
+    hide();
+    Lp = new MainWindow(this);
+    Lp->show();
 }
 
 void smartstudio::on_pushButton_98_clicked()
@@ -1515,7 +1519,7 @@ void smartstudio::on_pushButton_76_clicked()
 //statistics
 void smartstudio::updateCharts()
 {
-    int camera = 0, micro = 0, pc = 0, tablette = 0;
+ /*   int camera = 0, micro = 0, pc = 0, tablette = 0;
     int onsite = 0, remote = 0, hybrid = 0;
 
     for (int row = 0; row < ui->tableWidget_4->rowCount(); ++row) {
@@ -1580,10 +1584,11 @@ void smartstudio::updateCharts()
 
     chartLocView->setChart(chartLoc);
     chartLocView->setRubberBand(QChartView::RectangleRubberBand);
+    */
 }
 void smartstudio::on_pushButton_79_clicked()
 {
-    // 1) Vérifier s'il y a des données à exporter
+    /*<<<< 1) Vérifier s'il y a des données à exporter
     if (ui->tableWidget_4->rowCount() == 0) {
         QMessageBox::warning(this, "Attention",
                              "Il n'y a aucun matériel à exporter en PDF !");
@@ -1728,7 +1733,7 @@ void smartstudio::on_pushButton_79_clicked()
     painter.end();
 
     QMessageBox::information(this, "Succès",
-                             "Le PDF a été généré avec succès.");
+                             "Le PDF a été généré avec succès.");*/
 }
 
 
@@ -1836,3 +1841,4 @@ bool smartstudio::materialNeedsMaintenance(const Materielle::MaterielData &data)
 
     return false;
 }
+
