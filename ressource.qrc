@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../../Downloads/camera 2.jpg</file>
+        <file>../../Downloads/camera man.png</file>
+        <file>../../Downloads/abed bel micro.png</file>
+        <file>../../Downloads/aarriere plan.png</file>
+        <file>style.qss</file>
+    </qresource>
+</RCC>
